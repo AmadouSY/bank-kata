@@ -8,7 +8,7 @@ import java.util.Objects;
 public class Account {
 
     private final IBAN iban;
-    private List<OperationHistory> operationHistory;
+    private final List<OperationHistory> operationHistory;
 
     public Account() {
         this.operationHistory = new ArrayList<>();
@@ -34,7 +34,7 @@ public class Account {
     }
 
     public List<OperationHistory> getOperationHistory() {
-        return operationHistory;
+        return new ArrayList<>(operationHistory);
     }
 
     public void deposit(Amount amount){
@@ -44,9 +44,6 @@ public class Account {
 
     public void withdrawal(Amount amount){
 
-        /**
-         * TODO delete for overdraft
-         */
         if(amount.getQuantity().doubleValue() > getBalance()){
             throw new IllegalArgumentException("amount > balance");
         }
